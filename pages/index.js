@@ -1,17 +1,17 @@
-import Head from 'next/head'
+import Head from "next/head";
+import { useState } from "react";
 
 export default function Home() {
+  const [showfooterExtraContent, setShowFooterExraContent] = useState(false);
+
   return (
     <div className="container">
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Elements Tab</title>
       </Head>
 
       <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <h1 className="title">Elements Tab</h1>
 
         <p className="description">
           Get started by editing <code>pages/index.js</code>
@@ -46,6 +46,13 @@ export default function Home() {
             </p>
           </a>
         </div>
+
+        <div className="fruitbox">
+          <div className="apple">Apple</div>
+          <div className="kiwi">Kiwi</div>
+          <div className="mango">Mango</div>
+          <div className="orange">Orange</div>
+        </div>
       </main>
 
       <footer>
@@ -54,9 +61,16 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel" className="logo" />
+          Powered by <img src="/vercel.svg" alt="Vercel" className="logo" />
         </a>
+        <button
+          onClick={() => {
+            setShowFooterExraContent(true);
+          }}
+        >
+          Show Content
+        </button>
+        {showfooterExtraContent ? <div>Extra content</div> : ""}
       </footer>
 
       <style jsx>{`
@@ -76,6 +90,40 @@ export default function Home() {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+        }
+
+        .fruitbox {
+          display: grid;
+          grid-gap: 10px;
+          grid-template-columns: [left] 1fr [middle1] 1fr [middle2] 1fr [right];
+          border: 2px solid;
+          width: 300px;
+          padding: 4px;
+        }
+
+        .fruitbox div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 80px;
+          color: #000;
+        }
+
+        .apple {
+          background: red;
+        }
+
+        .kiwi {
+          background: #90ee90;
+        }
+
+        .mango {
+          background: #ff0;
+        }
+
+        .orange {
+          background: orange;
+          grid-column: left / right;
         }
 
         footer {
@@ -189,21 +237,6 @@ export default function Home() {
           }
         }
       `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
     </div>
-  )
+  );
 }
