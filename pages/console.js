@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function Console() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -70,7 +70,13 @@ export default function Home() {
         </div>
       </main>
 
-      <style jsx>{``}</style>
+      <style jsx>{`
+        .title {
+          margin: 0;
+          line-height: 1.15;
+          font-size: 4rem;
+        }
+      `}</style>
     </div>
   );
 }
