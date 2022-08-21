@@ -23,6 +23,11 @@ export default function MyApp({ Component, pageProps }) {
             <a>Sources</a>
           </Link>
         </li>
+        <li>
+          <Link href="/network">
+            <a>Network</a>
+          </Link>
+        </li>
       </ul>
       <Component {...pageProps} />
 
