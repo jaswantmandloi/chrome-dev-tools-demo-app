@@ -40,6 +40,12 @@ export default function MyApp({ Component, pageProps }) {
             <a>Application</a>
           </Link>
         </li>
+
+        <li>
+          <Link href="/sensors">
+            <a>Sensors</a>
+          </Link>
+        </li>
       </ul>
       <Component {...pageProps} />
 
