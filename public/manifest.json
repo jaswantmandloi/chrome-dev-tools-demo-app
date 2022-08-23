@@ -1,0 +1,18 @@
+{
+  "short_name": "Chrom Dev Tools",
+  "name": "Chrome Dev Tools Demo",
+  "icons": [
+    {
+      "src": "images/favicon_ms-icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "id": "/",
+  "background_color": "#3367D6",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#3367D6",
+  "description": "Chrome Dev Tools Demo"
+}
