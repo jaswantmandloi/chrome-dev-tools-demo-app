@@ -46,6 +46,12 @@ export default function MyApp({ Component, pageProps }) {
             <a>Sensors</a>
           </Link>
         </li>
+
+        <li>
+          <Link href="/animations">
+            <a>Animations</a>
+          </Link>
+        </li>
       </ul>
       <Component {...pageProps} />
 
@@ -55,6 +61,7 @@ export default function MyApp({ Component, pageProps }) {
           list-style: none;
           justify-content: space-around;
           max-width: 50%;
+          flex-direction: column;
         }
       `}</style>
       <style jsx global>{`
@@ -70,7 +77,31 @@ export default function MyApp({ Component, pageProps }) {
         * {
           box-sizing: border-box;
         }
+
+        ${cssThemeModeCSS}
       `}</style>
     </div>
   );
 }
+
+const enableThemeModeCSS = false;
+
+const cssThemeModeCSS = enableThemeModeCSS
+  ? `
+/* Light mode */
+        @media (prefers-color-scheme: light) {
+          body {
+            background-color: white;
+            color: red;
+          }
+        }
+
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+          body {
+            background-color: black;
+            color: yellow;
+          }
+        }
+`
+  : "";

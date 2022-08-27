@@ -1,10 +1,31 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
+let deferredPrompt;
 
 export default function Application() {
+  const [installable, setInstallable] = useState(false);
   useEffect(() => {
     initializePushNotifications();
     createNotificationSubscription();
+
+    const appinstalled = () => {
+      console.log("Thank you for installing our app!");
+    };
+    const beforeinstallprompt = (e) => {
+      // Prevent the mini-infobar from appearing on mobile
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+
+      setInstallable(true);
+    };
+    window.addEventListener("appinstalled", appinstalled);
+    window.addEventListener("beforeinstallprompt", beforeinstallprompt);
+
+    return () => {
+      window.removeEventListener(appinstalled);
+      window.removeEventListener(beforeinstallprompt);
+    };
   }, []);
 
   function handleAddLocalStorage() {
@@ -22,6 +43,21 @@ export default function Application() {
   async function handleAddRecordInDB() {
     const { db } = await getIndexedDB();
     add(db);
+  }
+
+  async function handleAppInstall() {
+    // deferredPrompt is a global variable we've been using in the sample to capture the `beforeinstallevent`
+    deferredPrompt.prompt();
+    // Find out whether the user confirmed the installation or not
+    const { outcome } = await deferredPrompt.userChoice;
+    // The deferredPrompt can only be used once.
+    deferredPrompt = null;
+    // Act on the user's choice
+    if (outcome === "accepted") {
+      console.log("User accepted the install prompt.");
+    } else if (outcome === "dismissed") {
+      console.log("User dismissed the install prompt");
+    }
   }
 
   return (
@@ -52,6 +88,13 @@ export default function Application() {
         <div>
           <button onClick={handleAddRecordInDB}>handleAddRecordInDB</button>
         </div>
+        {installable ? (
+          <div>
+            <button id="testInstall" onClick={handleAppInstall}>
+              handleAppInstall
+            </button>
+          </div>
+        ) : null}
       </main>
 
       <style jsx>{`
